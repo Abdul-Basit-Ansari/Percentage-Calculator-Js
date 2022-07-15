@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>Percentage Calculator</title>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Advanvce Percentage Calculator">
+	<meta name="keywords" content="Parcentage , AdvanvcePercentage , Static , HTML, CSS, JavaScript">
+	<meta name="author" content="Abdul Basit Ansari">
+	<link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+	<link rel="stylesheet" href="css/style.css">
+	<!-- Bootstrap CSS v5.2.0-beta1 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+		integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+</head>
+
+<body>
+	<h1 class="text-center my-5 border-bottom border-2 border-dark pb-5 container">Percentage-Calculator-Js</h1>
+
+	<div class="container my-3">
+		<div class="list-group my-3">
+			<a href="#method1" onclick="myclassl(document.getElementById('btn1'))" id="btn1"
+				class="list-group-item list-group-item-action bg-light">Method 1 For Total Marks
+				Calculation : Click Here</a>
+			<a href="#method2" onclick="myclassl(document.getElementById('btn2'))" id="btn2"
+				class="list-group-item list-group-item-action bg-light">Method 2 For Subjects Marks
+				Calculation : Click Here</a>
+		</div>
+	</div>
+
+
+	<div class="container" id="method1">
+
+		<form class="mt-5" onsubmit="method1func(); return false">
+			<h1 class="text-center my-5 border-bottom border-2 border-dark py-3">Method 1</h1>
+			<div class="mb-3">
+				<label for="tmarks" class="form-label">Enter Total Marks</label>
+				<input type="number" name="tmarks" id="tmarks" class="form-control bg-dark text-light text-center" placeholder="0000"
+					aria-describedby="helpId">
+			</div>
+			<div class="mb-3">
+				<label for="omarks" class="form-label">Enter Obtain Marks</label>
+				<input type="number" name="omarks" id="omarks" class="form-control bg-dark text-light text-center" placeholder="0000"
+					aria-describedby="helpId">
+			</div>
+			<button type="submit" class="btn btn-primary mt-3 container">Answer</button>
+
+		</form>
+	</div>
+
+	<div class="border border-3 border-dark container mt-5 rounded-3 p-5 text-center">
+
+		<h3 id="res" class="text-muted my-2">Answer Box</h3>
+	</div>
+
+
+
+
+
+
+	<div class="container mt-5" id="method2">
+
+		<h1 class="text-center my-5 border-bottom border-2 border-dark py-3">Method 2</h1>
+		<div id="mysubs">
+			<form class="mt-5" onsubmit="method2func(); return false">
+
+
+				<div class="mb-1">
+					<label for="num-of-sub" class="form-label text-light">Enter Number Of Subjects</label>
+					<input type="number" name="num-of-sub" id="num-of-sub" class="form-control bg-dark text-light text-center"
+						placeholder="0000" >
+				</div>
+
+				<!-- <button type="button" id="rbtn" style="display:none;" onclick="rsub(document.getElementById('mysubs'))"
+					class="btn btn-outline-danger mt-3 ">Remove All Subjects</button> -->
+				<button type="submit" id="ansbtn" class="btn btn-primary mt-4 container">Enter</button>
+
+
+			</form>
+
+		</div>
+		<div class="border border-3 border-dark container my-5 rounded-3 p-5 text-center">
+
+			<h3 id="res2" class="text-muted my-2">Answer Box</h3>
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>
+
+		function method2func() {
+			let id = Number(document.getElementById('num-of-sub').value);
+			let subs = document.getElementById('mysubs');
+			let ansbox = document.getElementById('res2');
+			// let rbtn = document.getElementById('rbtn');
+			// let ansbtn = document.getElementById('ansbtn');
+			if (id < 1 || id >= 11) {
+				ansbox.innerHTML = "Please Enter Greater Than 0 And Less Than 11 Subjects";
+			}
+			else if (id > 1 || id <= 11) {
+
+				subs.innerHTML = ``;
+				// rbtn.style.display = "inline-block";
+				// ansbtn.innerText = "Cheak Answer";
+				let inputlist = "";
+				for (let i = 1; i <= id; i++) {
+					let subs = document.getElementById('mysubs');
+					inputlist += `<div class="input-group" >
+				<span class="input-group-text bg-secondary text-dark">Subject${i}</span>
+					<input type="number" placeholder="Enter Total Marks" id="subject${i}total"
+					class="form-control bg-dark text-light text-center">
+					<input type="number" placeholder="Enter Obtain Marks" id="subject${i}obtain" class="form-control bg-dark text-light text-center">
+				</div>
+				<br>`
+
+				}
+				subs.innerHTML = `<form class="mt-5" onsubmit="method2(); return false"><div id="childs">${inputlist}</div>
+				<button type="button" id="rbtn" onclick="rsub(document.getElementById('mysubs'))"
+				class="btn btn-danger mt-2 ">Remove All Subjects</button>
+			<button type="submit" id="method2ansbtn" class="btn btn-primary mt-2 ">Cheak Answer</button></form>`;
+
+			}
+
+		}
+
+		function method2() {
+			let subject = document.getElementById("childs").childElementCount;
+			let tmarks = 0;
+			let omarks = 0;
+			let subjects = subject / 2;
+			let Grade;
+			let res;
+			let submarks;
+			let subcheak = true;
+			for (let i = 1; i <= subjects; i++) {
+				let total_marks = Number(document.getElementById(`subject${i}total`).value);
+				let obtain_marks = Number(document.getElementById(`subject${i}obtain`).value);
+				if (total_marks >= obtain_marks) {
+					tmarks += total_marks;
+					omarks += obtain_marks;
+				}
+				else if (total_marks <= obtain_marks) {
+					subcheak = false;
+					let ans = `Somting Else In Subject No ${i} Total Marks Must Be A Greater Then Obtain Marks`
+					document.getElementById('res2').innerText = ans;
+
+				}
+
+			}
+			if (subcheak === true) {
+				submarks = Math.round((omarks * 100) / tmarks);
+				console.log(submarks);
+			}
+
+
+
+
+			if (submarks > 90 && submarks < 100 && tmarks >= omarks) {
+				Grade = "A++ Grade";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res2').innerText = ans;
+
+			}
+			else if (submarks >= 80 && tmarks >= omarks) {
+				Grade = "A+ Grade";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res2').innerText = ans;
+
+			}
+			else if (submarks >= 70 && tmarks >= omarks) {
+
+				Grade = "A Grade";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res2').innerText = ans;
+
+			}
+			else if (submarks >= 60 && tmarks >= omarks) {
+				Grade = "B Grade";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res2').innerText = ans;
+
+			}
+			else if (submarks >= 50 && tmarks >= omarks) {
+				Grade = "C Grade";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res2').innerText = ans;
+
+			}
+			else if (submarks >= 40 && tmarks >= omarks) {
+				Grade = "D Grade";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res2').innerText = ans;
+
+			}
+			else if (submarks >= 33 && tmarks >= omarks) {
+				Grade = "F Grade";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res2').innerText = ans;
+
+			}
+			else if (submarks <= 33 && tmarks >= omarks) {
+				Grade = "Fail";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res2').innerText = ans;
+
+			}
+			// else {
+			// 	Grade = 'Failed'
+			// 	let ans = `Invaled Marks Please Enter Valid Marks`
+			// 	document.getElementById('res2').innerText = ans;
+
+
+
+			// }
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		function rsub(id) {
+			// let rbtn = document.getElementById('rbtn');
+			// let ansbtn = document.getElementById('ansbtn');
+			// rbtn.style.display = "none";
+			// ansbtn.innerHTML = "Enter";
+			id.innerHTML = `<form class="mt-5" onsubmit="method2func(); return false">
+				<div class="mb-1">
+					<label for="num-of-sub" class="form-label">Enter Number Of Subjects</label>
+					<input type="number" name="num-of-sub" id="num-of-sub" class="form-control bg-dark text-light text-center" placeholder="0000"
+						aria-describedby="helpId">
+				</div>
+				<button type="submit" id="ansbtn" class="btn btn-primary mt-4 container">Enter</button>
+				</form>`
+
+		}
+
+
+
+
+
+		function myclassl(id) {
+			let btn1 = document.getElementById('btn1');
+			let btn2 = document.getElementById('btn2');
+			if (id === btn1) {
+				btn2.classList.remove('active');
+				btn2.classList.add('bg-light')
+				btn1.classList.remove('bg-light');
+				btn1.classList.add('active')
+			}
+			if (id === btn2) {
+				btn1.classList.remove('active');
+				btn1.classList.add('bg-light')
+				btn2.classList.remove('bg-light');
+				btn2.classList.add('active')
+			}
+
+		}
+
+		function method1func() {
+			let tmarks = Number(document.getElementById('tmarks').value);
+			let omarks = Number(document.getElementById('omarks').value);
+			let Grade;
+			let res;
+			let submarks = Math.round((omarks * 100) / tmarks);
+
+			if (submarks > 90 && submarks < 100 && tmarks >= omarks) {
+				Grade = "A++ Grade";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res').innerText = ans;
+
+			}
+			else if (submarks >= 80 && tmarks >= omarks) {
+				Grade = "A+ Grade";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res').innerText = ans;
+
+			}
+			else if (submarks >= 70 && tmarks >= omarks) {
+
+				Grade = "A Grade";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res').innerText = ans;
+
+			}
+			else if (submarks >= 60 && tmarks >= omarks) {
+				Grade = "B Grade";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res').innerText = ans;
+
+			}
+			else if (submarks >= 50 && tmarks >= omarks) {
+				Grade = "C Grade";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res').innerText = ans;
+
+			}
+			else if (submarks >= 40 && tmarks >= omarks) {
+				Grade = "D Grade";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res').innerText = ans;
+
+			}
+			else if (submarks >= 33 && tmarks >= omarks) {
+				Grade = "F Grade";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res').innerText = ans;
+
+			}
+			else if (submarks <= 33 && tmarks >= omarks) {
+				Grade = "Fail";
+				let ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+				document.getElementById('res').innerText = ans;
+
+			}
+			else {
+				Grade = 'Failed'
+				let ans = `Invaled Marks Please Enter Valid Marks`
+				document.getElementById('res').innerText = ans;
+
+
+
+			}
+			let ans = document.getElementById('res').innerHTML;
+
+			ans = `Your Percentage Is " ${submarks} " % With " ${Grade} "`
+		}
+	</script>
+
+	<!-- Bootstrap JavaScript Libraries -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+		integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+		crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+		integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
