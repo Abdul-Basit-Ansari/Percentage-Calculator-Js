@@ -1,11 +1,4 @@
-/* body{
-	background-image: url('../img/bg7.jpg');
-	background-size: 170%;
-	background-position-x: center;
-	background-repeat: repeat-y;
-
+body{
+	background-image: linear-gradient(ghostwhite,gray , ghostwhite);
 }
 
-.mybg{
-	background: transparent;
-} */
